@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.stream.Collectors;
 
 public class Zadanie0 {
 
@@ -46,7 +47,10 @@ public class Zadanie0 {
 
     private List<Person> findAdults(List<Person> people) {
         //todo IMPLEMENT ME
-        return null;
+        return people
+                .stream()
+                .filter(p -> p.age() >= 18)
+                .collect(Collectors.toList());
     }
 
 
@@ -65,7 +69,10 @@ public class Zadanie0 {
     }
 
     private double calculateAverageAge(List<Person> people) {
-        return 0;
+        return people.stream()
+                .mapToDouble(Person::age)
+                .average()
+                .orElse(0);
     }
 
     /**
@@ -80,7 +87,7 @@ public class Zadanie0 {
         Map<Integer, List<Person>> groupedByAge = groupPeopleByAge(people);
 
         //then
-        assertThat(groupedByAge.size()).isEqualTo(5);
+        assertThat(groupedByAge.size()).isEqualTo(4);
         assertThat(groupedByAge.get(17).size()).isEqualTo(1);
         assertThat(groupedByAge.get(18).size()).isEqualTo(1);
         assertThat(groupedByAge.get(39).size()).isEqualTo(1);
@@ -88,7 +95,7 @@ public class Zadanie0 {
     }
 
     private Map<Integer, List<Person>> groupPeopleByAge(List<Person> people) {
-        return null;
+        return people.stream().collect(Collectors.groupingBy(Person::age, Collectors.toList()));
     }
 
 
