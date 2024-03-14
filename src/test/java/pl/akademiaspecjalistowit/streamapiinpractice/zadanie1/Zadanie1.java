@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -22,6 +23,6 @@ public class Zadanie1 {
     }
 
     private int sumEvenGraterThanTen(List<Integer> numbers) {
-        return 0;
+        return numbers.stream().filter(k -> (k % 2 == 0 && k > 10)).reduce((a, b) -> a + b).orElse(0);
     }
 }
