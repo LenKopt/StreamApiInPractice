@@ -152,7 +152,7 @@ public class Zadanie6 {
     }
 
     private Set<Integer> findUniqueElements(List<Integer> numbers) {
-        return numbers.stream().filter(number->numbers.contains(number)).collect(Collectors.toSet());
+        return numbers.stream().filter(number -> numbers.contains(number)).collect(Collectors.toSet());
     }
 
 
@@ -170,7 +170,7 @@ public class Zadanie6 {
     }
 
     private int calculateSumOfElementsGreaterThanValue(List<Integer> numbers, int i) {
-        return 0;
+        return numbers.stream().filter(number -> number >= i).reduce((a, b) -> a + b).orElse(0);
     }
 
     // Zadanie 9: Oblicz średnią długość słów w danej liście napisów.
