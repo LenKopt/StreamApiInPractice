@@ -1,7 +1,10 @@
 package pl.akademiaspecjalistowit.streamapiinpractice.zadanie4;
 
 import java.util.List;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Zadanie4_2 {
 
@@ -15,6 +18,7 @@ public class Zadanie4_2 {
      */
     @Test
     void zadanie4() {
+        //given
         List<Order> orders = List.of(
             new Order(List.of(new Product("Książka", 30.0), new Product("Długopis", 5.0)), "NOWE"),
             new Order(List.of(new Product("Laptop", 2000.0), new Product("Myszka", 100.0)), "WYSŁANE"),
@@ -29,7 +33,18 @@ public class Zadanie4_2 {
                 "WYSŁANE"),
             new Order(List.of(new Product("Etui", 344.15), new Product("Buty", 961.36)), "DOSTARCZONE")
         );
-
-
+        //when
+        BigDecimal totalAmount = calculateTotalAmountAllOrders(orders);
+        //then
+        assertThat(totalAmount).isEqualTo(BigDecimal.valueOf(3616.14));
+    }
+    private BigDecimal calculateTotalAmountAllOrders(List<Order> orders) {
+        return orders.
+                stream().
+                filter(order -> order.getStatus().toUpperCase().equals("NOWE")).
+                flatMap(order -> order.getProducts().stream()).
+                map(product -> BigDecimal.valueOf(product.getPrice())).
+                reduce(BigDecimal.ZERO, BigDecimal::add).
+                setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }
