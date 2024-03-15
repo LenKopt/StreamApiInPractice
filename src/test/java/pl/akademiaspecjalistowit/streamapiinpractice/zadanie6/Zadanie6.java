@@ -152,7 +152,7 @@ public class Zadanie6 {
     }
 
     private Set<Integer> findUniqueElements(List<Integer> numbers) {
-        return null;
+        return numbers.stream().filter(number->numbers.contains(number)).collect(Collectors.toSet());
     }
 
 
