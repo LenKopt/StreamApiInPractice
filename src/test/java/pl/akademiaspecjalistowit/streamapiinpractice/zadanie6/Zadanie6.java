@@ -3,12 +3,7 @@ package pl.akademiaspecjalistowit.streamapiinpractice.zadanie6;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -109,10 +104,10 @@ public class Zadanie6 {
     }
 
     private String findLongestString(List<String> strings) {
-        return strings.
-                stream().
-                map(word -> word.length()).
-                max();
+        List<Integer> listLengths = strings.stream().map(word -> word.length()).sorted(Comparator.reverseOrder()).toList();
+
+        return strings.stream().filter(word -> word.length() == listLengths.getFirst()).findFirst().orElse("");
+
     }
 
 
