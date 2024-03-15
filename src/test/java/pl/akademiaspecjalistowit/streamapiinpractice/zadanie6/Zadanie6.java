@@ -263,6 +263,9 @@ public class Zadanie6 {
     }
 
     private List<Character> findLastLetterOfEachWord(List<String> words) {
-        return null;
+        return words
+                .stream()
+                .map(word -> word.charAt(word.length() - 1))
+                .collect(Collectors.toList());
     }
 }
