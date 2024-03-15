@@ -134,7 +134,9 @@ public class Zadanie6 {
     }
 
     private Map<String, Long> countWordOccurrences(String text) {
-        return null;
+        return Arrays.
+                stream(text.split(" ")).
+                collect(Collectors.groupingBy(word->word,Collectors.counting()));
     }
 
     // Zadanie 7: Znajdź wszystkie unikalne elementy w danej liście.
