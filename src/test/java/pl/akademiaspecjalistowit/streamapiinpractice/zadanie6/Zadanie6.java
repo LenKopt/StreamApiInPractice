@@ -242,7 +242,11 @@ public class Zadanie6 {
     }
 
     private int findMinimumNumber(List<Integer> numbers) {
-        return 0;
+        return numbers
+                .stream()
+                .mapToInt(number -> number)
+                .min()
+                .orElseThrow();
     }
 
     // Zadanie 12: Znajdź ostatnią literę każdego słowa w danej liście napisów.
