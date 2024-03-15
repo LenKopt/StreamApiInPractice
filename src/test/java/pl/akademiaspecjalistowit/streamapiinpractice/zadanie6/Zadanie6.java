@@ -223,7 +223,9 @@ public class Zadanie6 {
     }
 
     private boolean areAllNumbersPositive(List<Integer> numbers) {
-        return false;
+        return numbers
+                .stream()
+                .allMatch(number -> number > 0);
     }
 
     // Zadanie 11: Znajdź najmniejszą liczbę w danej liście.
