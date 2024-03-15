@@ -23,6 +23,6 @@ public class Zadanie1 {
     }
 
     private int sumEvenGraterThanTen(List<Integer> numbers) {
-        return numbers.stream().filter(k -> (k % 2 == 0 && k > 10)).reduce((a, b) -> a + b).orElse(0);
+        return numbers.stream().filter(k -> (k % 2 == 0 && k > 10)).reduce(Integer::sum).orElse(0);
     }
 }

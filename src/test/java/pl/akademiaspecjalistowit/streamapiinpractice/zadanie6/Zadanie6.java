@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -24,11 +25,11 @@ public class Zadanie6 {
     }
 
     private double calculateAverage(List<Integer> numbers) {
-        return numbers.
-                stream().
-                mapToInt(number -> number).
-                average().
-                orElse(0);
+        return numbers
+                .stream()
+                .mapToInt(number -> number)
+                .average()
+                .orElse(0);
     }
 
     // Zadanie 2: Wybierz wszystkie liczby parzyste z danej listy.
@@ -45,10 +46,10 @@ public class Zadanie6 {
     }
 
     private List<Integer> filterEvenNumbers(List<Integer> numbers) {
-        return numbers.
-                stream().
-                filter(number -> number % 2 == 0).
-                collect(Collectors.toList());
+        return numbers
+                .stream()
+                .filter(number -> number % 2 == 0)
+                .collect(Collectors.toList());
     }
 
     // Zadanie 3: Oblicz sumę kwadratów liczb z danej listy.
@@ -65,10 +66,10 @@ public class Zadanie6 {
     }
 
     private int calculateSumOfSquares(List<Integer> numbers) {
-        return numbers.
-                stream().
-                mapToInt(number -> number * number).
-                sum();
+        return numbers
+                .stream()
+                .mapToInt(number -> number * number)
+                .sum();
     }
 
     // Zadanie 4: Połącz wszystkie napisy z danej listy w jeden.
@@ -85,9 +86,9 @@ public class Zadanie6 {
     }
 
     private String concatenateStrings(List<String> strings) {
-        return strings.
-                stream().
-                collect(Collectors.joining());
+        return strings
+                .stream()
+                .collect(Collectors.joining());
     }
 
     // Zadanie 5: Znajdź najdłuższy napis w danej liście.
@@ -104,10 +105,15 @@ public class Zadanie6 {
     }
 
     private String findLongestString(List<String> strings) {
-        List<Integer> listLengths = strings.stream().map(word -> word.length()).sorted(Comparator.reverseOrder()).toList();
-
-        return strings.stream().filter(word -> word.length() == listLengths.getFirst()).findFirst().orElse("");
-
+        List<Integer> listLengths = strings
+                .stream()
+                .map(String::length)
+                .sorted(Comparator.reverseOrder())
+                .toList();
+        return strings
+                .stream()
+                .filter(word -> word.length() == listLengths.getFirst())
+                .findFirst().orElse("");
     }
 
 
@@ -134,9 +140,9 @@ public class Zadanie6 {
     }
 
     private Map<String, Long> countWordOccurrences(String text) {
-        return Arrays.
-                stream(text.split(" ")).
-                collect(Collectors.groupingBy(word->word,Collectors.counting()));
+        return Arrays
+                .stream(text.split(" "))
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()));
     }
 
     // Zadanie 7: Znajdź wszystkie unikalne elementy w danej liście.
@@ -154,7 +160,10 @@ public class Zadanie6 {
     }
 
     private Set<Integer> findUniqueElements(List<Integer> numbers) {
-        return numbers.stream().filter(number -> numbers.contains(number)).collect(Collectors.toSet());
+        return numbers
+                .stream()
+                .filter(number -> numbers.contains(number))
+                .collect(Collectors.toSet());
     }
 
 
@@ -172,7 +181,11 @@ public class Zadanie6 {
     }
 
     private int calculateSumOfElementsGreaterThanValue(List<Integer> numbers, int i) {
-        return numbers.stream().filter(number -> number >= i).reduce((a, b) -> a + b).orElse(0);
+        return numbers
+                .stream()
+                .filter(number -> number >= i)
+                .reduce((a, b) -> a + b)
+                .orElse(0);
     }
 
     // Zadanie 9: Oblicz średnią długość słów w danej liście napisów.
@@ -182,14 +195,18 @@ public class Zadanie6 {
         List<String> words = Arrays.asList("apple", "banana", "orange", "kiwi");
 
         // when
-        double result = calculateAverageWordLength(words);
+        int result = calculateAverageWordLength(words);
 
         // then
         assertEquals(5.0, result, 0.0001);
     }
 
-    private double calculateAverageWordLength(List<String> words) {
-        return 0;
+    private int calculateAverageWordLength(List<String> words) {
+        return (int) words
+                .stream()
+                .mapToInt(word -> word.length())
+                .average()
+                .orElseThrow();
     }
 
     // Zadanie 10: Sprawdź, czy wszystkie liczby w danej liście są dodatnie.
