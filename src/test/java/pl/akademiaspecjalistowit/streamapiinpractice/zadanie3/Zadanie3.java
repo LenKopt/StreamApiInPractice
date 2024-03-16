@@ -41,14 +41,14 @@ public class Zadanie3 {
     }
 
     private List<String> findFiveEmploeersWithGreatestSalary(List<Employee> employees) {
-        return employees.
-                stream().
-                sorted(Comparator.comparingDouble(Employee::getSalary).
-                        reversed()).
-                limit(5).
-                map(Employee::getName).
-                sorted().
-                collect(Collectors.toList());
+        return employees
+                .stream()
+                .sorted(Comparator.comparingDouble(Employee::getSalary)
+                        .reversed())
+                .limit(5)
+                .map(Employee::getName)
+                .sorted()
+                .collect(Collectors.toList());
     }
 
 }
