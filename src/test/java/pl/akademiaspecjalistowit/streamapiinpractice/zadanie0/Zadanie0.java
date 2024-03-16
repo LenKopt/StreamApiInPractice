@@ -69,7 +69,8 @@ public class Zadanie0 {
     }
 
     private double calculateAverageAge(List<Person> people) {
-        return people.stream()
+        return people
+                .stream()
                 .mapToDouble(Person::age)
                 .average()
                 .orElse(0);
@@ -95,7 +96,9 @@ public class Zadanie0 {
     }
 
     private Map<Integer, List<Person>> groupPeopleByAge(List<Person> people) {
-        return people.stream().collect(Collectors.groupingBy(Person::age, Collectors.toList()));
+        return people
+                .stream()
+                .collect(Collectors.groupingBy(Person::age, Collectors.toList()));
     }
 
 

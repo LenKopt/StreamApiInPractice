@@ -1,8 +1,6 @@
 package pl.akademiaspecjalistowit.streamapiinpractice.zadanie4;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Mając listę zamówień, znajdź najczęściej występującą nazwę produktu
  */
 public class Zadanie4_1 {
-
 
     @Test
     void test() {
@@ -42,6 +39,7 @@ public class Zadanie4_1 {
         assertThat(listProductsMostOftenToSale.contains("Telefon"));
         assertThat(listProductsMostOftenToSale.contains("Buty"));
         assertThat(listProductsMostOftenToSale.contains("Etui"));
+
     }
 
     private List<String> findProductsMostOftenToSale(List<Order> orders) {
@@ -64,4 +62,5 @@ public class Zadanie4_1 {
                 values().
                 stream().max(Long::compareTo).orElse(0L);
     }
+
 }
