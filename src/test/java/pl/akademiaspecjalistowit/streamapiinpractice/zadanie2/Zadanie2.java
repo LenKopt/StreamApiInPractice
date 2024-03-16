@@ -21,8 +21,10 @@ public class Zadanie2 {
     void grouping() {
         //given
         List<String> words = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
+
         //when
         Map<Integer, Long> wordCount = groupWords(words);
+
         //then
         assertThat(wordCount.size()).isEqualTo(4);
         assertThat(wordCount.get(3)).isEqualTo(1);
@@ -32,10 +34,10 @@ public class Zadanie2 {
     }
 
     private Map<Integer, Long> groupWords(List<String> words) {
-        return words.
-                stream().
-                map(k -> k.length()).
-                peek(System.out::println).
-                collect(Collectors.groupingBy(k -> k, Collectors.counting()));
+        return words
+                .stream()
+                .map(String::length)
+                .peek(System.out::println)
+                .collect(Collectors.groupingBy(k -> k, Collectors.counting()));
     }
 }
