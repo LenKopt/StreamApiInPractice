@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Zadanie5 {
 
@@ -20,7 +21,7 @@ public class Zadanie5 {
 
     @Test
     void zadanie5() {
-
+        //given
         List<Product> products = List.of(
             new Product("Telefon", 250.0, "Elektronika"),
             new Product("Laptop", 1200.0, "Elektronika"),
@@ -34,13 +35,20 @@ public class Zadanie5 {
             new Product("Kamera", 150.0, "Elektronika")
         );
 
-        Map<String, List<String>> productsGroupedByCategory = null;
-
-//        System.out.println("Produkty pogrupowane według kategorii: " + productsGroupedByCategory);
-
-
+        //when
+        Map<String, List<String>> productsGroupedByCategory = findProductsMoreExpensiveThan(products, 100);
+        //then
+        assertThat(productsGroupedByCategory.size()).isEqualTo(3);
+        assertThat(productsGroupedByCategory.get("Elektronika").size()).isEqualTo(3);
+        assertThat(productsGroupedByCategory.get("Ogród").size()).isEqualTo(3);
+        assertThat(productsGroupedByCategory.get("Dom").size()).isEqualTo(1);
+        assertThat(productsGroupedByCategory.get("Dom").get(0)).isEqualTo(productsGroupedByCategory.get("Dom").get(0).toUpperCase());
+    }
+    private Map<String, List<String>> findProductsMoreExpensiveThan(List<Product> products, int price) {
+        return products.
+                stream().
+                filter(p -> p.getPrice() > price).
+                collect(Collectors.groupingBy(Product::getCategory, Collectors.mapping(d -> d.getName().toUpperCase(), Collectors.toList())));
     }
 
-
-//
 }
