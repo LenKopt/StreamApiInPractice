@@ -1,6 +1,7 @@
 package pl.akademiaspecjalistowit.streamapiinpractice.zadanie4;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -36,31 +37,30 @@ public class Zadanie4_1 {
         List<String> listProductsMostOftenToSale = findProductsMostOftenToSale(orders);
         //then
         assertThat(listProductsMostOftenToSale.size()).isEqualTo(3);
-        assertThat(listProductsMostOftenToSale.contains("Telefon"));
-        assertThat(listProductsMostOftenToSale.contains("Buty"));
-        assertThat(listProductsMostOftenToSale.contains("Etui"));
-
+        assertThat(listProductsMostOftenToSale).containsExactlyInAnyOrder("Telefon", "Buty", "Etui");
     }
 
     private List<String> findProductsMostOftenToSale(List<Order> orders) {
-        return orders.stream().
-                flatMap(order -> order.getProducts().
-                        stream()).
-                collect(Collectors.groupingBy(Product::getName, Collectors.counting())).
-                entrySet().
-                stream().
-                filter(e -> e.getValue() == getMaxValue(orders)).
-                map(k -> k.getKey()).
-                collect(Collectors.toList());
+        Map<String, Long> mapNameAndCount = getMapNameAndCount(orders);
+        return mapNameAndCount
+                .entrySet()
+                .stream()
+                .filter(e -> e.getValue().equals(getMaxValue(mapNameAndCount)))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
-    private Long getMaxValue(List<Order> orders) {
-        return orders.stream().
-                flatMap(order -> order.getProducts().
-                        stream()).
-                collect(Collectors.groupingBy(Product::getName, Collectors.counting())).
-                values().
-                stream().max(Long::compareTo).orElse(0L);
+    private static Map<String, Long> getMapNameAndCount(List<Order> orders) {
+        return orders.stream()
+                .flatMap(order -> order.getProducts()
+                        .stream())
+                .collect(Collectors.groupingBy(Product::getName, Collectors.counting()));
     }
 
+    private Long getMaxValue(Map<String, Long> mapNameAndCount) {
+        return mapNameAndCount
+                .values()
+                .stream().max(Long::compareTo)
+                .orElse(0L);
+    }
 }
