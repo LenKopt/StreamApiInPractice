@@ -162,7 +162,7 @@ public class Zadanie6 {
     private Set<Integer> findUniqueElements(List<Integer> numbers) {
         return numbers
                 .stream()
-                .filter(number -> numbers.contains(number))
+                .filter(numbers::contains)
                 .collect(Collectors.toSet());
     }
 
@@ -184,7 +184,7 @@ public class Zadanie6 {
         return numbers
                 .stream()
                 .filter(number -> number >= i)
-                .reduce((a, b) -> a + b)
+                .reduce(Integer::sum)
                 .orElse(0);
     }
 
@@ -204,7 +204,7 @@ public class Zadanie6 {
     private int calculateAverageWordLength(List<String> words) {
         return (int) words
                 .stream()
-                .mapToInt(word -> word.length())
+                .mapToInt(String::length)
                 .average()
                 .orElseThrow();
     }
