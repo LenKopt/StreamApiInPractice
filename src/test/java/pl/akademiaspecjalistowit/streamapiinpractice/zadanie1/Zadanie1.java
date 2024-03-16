@@ -14,19 +14,25 @@ public class Zadanie1 {
 
     @Test
     void filteringAndSumming() {
-        //given
+        // given
         List<Integer> numbers = Arrays.asList(12, 3, 45, 19, 8, 15, 4, 27, 20);
 
+        // when
         int sum = sumEvenGraterThanTen(numbers);
 
+        // then
         assertThat(sum).isEqualTo(32);
     }
 
     private int sumEvenGraterThanTen(List<Integer> numbers) {
-        return numbers.
-                stream().
-                filter(k -> (k % 2 == 0 && k > 10)).
-                reduce((a, b) -> a + b).
-                orElse(0);
+        return numbers
+                .stream()
+                .filter(Zadanie1::numberIsMoreThenTenAndEven)
+                .reduce(Integer::sum)
+                .orElse(0);
+    }
+
+    private static boolean numberIsMoreThenTenAndEven(Integer number) {
+        return number % 2 == 0 && number > 10;
     }
 }
